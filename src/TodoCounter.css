@@ -1,0 +1,15 @@
+h2{
+  text-align: center;
+  font-family: 'ubuntu';
+  font-size: 20px;
+}
+
+.TodoCounter > span:nth-child(1) {
+  display: block;
+  font-size: 48px;
+  font-family: 'Kalam';
+}
+
+
+
+
