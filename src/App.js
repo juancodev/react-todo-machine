@@ -6,18 +6,34 @@ import { TodoItem } from './TodoItem';
 import { CreateTodoButton } from './CreateTodoButton';
 // import './App.css';
 
-const todos = [
-  { text: 'Cortar alimentos', completed: false },
+const defaultTodos = [
+  { text: 'Cortar alimentos', completed: true },
   { text: 'Tomar curso de react', completed: false },
   { text: 'Ir a las citas médicas', completed: false },
 ]
 
 function App() {
+
+  const [todos, setTodos] = React.useState(defaultTodos)
+  const [searchValue, setSearchValue] = React.useState('');
+  const completedTodos = todos.filter(todo => !!todo.completed).length;
+  const totalTodos = todos.length;
+
+  let searchedTodos = [];
+
+
+
   return (
     <React.Fragment>
-      <TodoCounter />
+      <TodoCounter
+        total={totalTodos}
+        completed={completedTodos}
+      />
 
-      <TodoSearch />
+      <TodoSearch
+        searchValue={searchValue}
+        setSearchValue={setSearchValue}
+      />
 
       <TodoList>
         {todos.map(todo => (
@@ -40,4 +56,5 @@ export default App;
   *Con props = mandamos todo lo que sería información.
   *Con children = mandarle elementos HTML.
   *con <></> podemos definir el fragment en react.
+  *const completedTodos = todos.filter(todo => todo.completed == true) forma tradicional de validar
 */
