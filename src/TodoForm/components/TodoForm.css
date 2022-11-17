@@ -28,7 +28,7 @@ textarea {
   padding: 12px;
   height: 96px;
   width: calc(100%-25px);
-  resize: vertical;
+  resize: none;
 }
 
 textarea::placeholder {
@@ -63,8 +63,9 @@ textarea:focus {
 }
 
 .TodoForm-button--add {
-  background: #61dafa;
+  background: #38b000;
   box-shadow: 0px 5px 25px rgba(97, 218, 250, 0.5);
+  color: #fff;
 }
 
 .TodoForm-button--cancel{

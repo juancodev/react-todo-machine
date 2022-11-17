@@ -1,13 +1,36 @@
+.TodoCounter-container{
+  display: flex;
+  position: relative;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+
+
+
 h2{
+  display: flex;
+  flex-direction: column;
   text-align: center;
   font-family: 'ubuntu';
   font-size: 20px;
+  z-index: 30;
 }
 
 .TodoCounter > span:nth-child(1) {
   display: block;
-  font-size: 48px;
+  font-size: 50px;
   font-family: 'Kalam';
+  color: #61DAFA;
+}
+
+.img-title{
+  position: absolute;
+  top: -78px
+}
+
+.img-paper{
+  width: 400px;
+  height: 265px;
 }
 
 
