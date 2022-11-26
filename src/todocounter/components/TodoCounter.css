@@ -33,6 +33,9 @@ h2{
   height: 265px;
 }
 
+.TodoCounter--loading{
+  opacity: 50%;
+}
 
 
 
