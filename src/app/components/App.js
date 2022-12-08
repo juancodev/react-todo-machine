@@ -11,6 +11,8 @@ import { TodoForm } from "../../TodoForm/components/TodoForm";
 import { TodosError } from "../../TodosError/components/TodoError";
 import { LoaderSkeleton } from '../../Loader/components/LoaderSkeleton';
 import { EmptyTodos } from '../../EmptyTodos/components/EmptyTodos';
+import { ChangeAlert } from '../../ChangeAlert/components/ChangeAlert';
+import { EmptySearchResult } from '../../EmptySearchResult/components/EmptySearchResult';
 
 function App() {
   const {
@@ -26,6 +28,7 @@ function App() {
     completedTodos,
     searchValue,
     setSearchValue,
+    sincronizeTodos,
   } = useTodos();
 
   return (
@@ -51,7 +54,7 @@ function App() {
         onLoading={() => <LoaderSkeleton />}
         onEmptyTodos={() => <EmptyTodos />}
         onEmptySearchResults={
-          (searchText) => <p>there are no results for {searchText}</p>
+          (searchText) => <EmptySearchResult searchText={searchText} />
         }
       // Render Props
       // render={todo => (
@@ -87,6 +90,9 @@ function App() {
 
       <CreateTodoButton
         setOpenModal={setOpenModal}
+      />
+      <ChangeAlert
+        sincronize={sincronizeTodos}
       />
     </React.Fragment>
   );

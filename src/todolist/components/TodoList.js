@@ -13,7 +13,7 @@ function TodoList(props) {
       {(!!props.totalTodos && !props.searchedTodos.length) && props.onEmptySearchResults(props.searchText)}
 
       <ul>
-        {props.searchedTodos.map(renderWay)}
+        {(!props.loading && !props.error) && props.searchedTodos.map(renderWay)}
         {/* {props.children} */}
       </ul>
     </section>

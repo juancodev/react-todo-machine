@@ -16,6 +16,9 @@
 .title {
   font-size: 38px;
   font-family: 'Kalam';
+  background-color: rgb(0 0 0 / 10%);
+  padding: 0 5px;
+  border-radius: 10px;
 }
 
 figure .img-person{
@@ -80,6 +83,9 @@ figure .img-person{
   .title{
     font-size: 20px;
     font-family: 'Kalam';
+    background-color: rgb(0 0 0 / 10%);
+    padding: 0 5px;
+    border-radius: 10px;
   }
 
   figure .img-person {
