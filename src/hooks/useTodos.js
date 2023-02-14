@@ -1,5 +1,6 @@
 import React from "react";
 import { useLocalStorage } from "./useLocalStorage";
+import { v4 as uuid } from 'uuid';
 
 function useTodos() {
 
@@ -8,13 +9,13 @@ function useTodos() {
     saveItem: saveTodos,
     sincronizeItem: sincronizeTodos,
     loading,
-    error } = useLocalStorage('TODOS_V1', []);
+    error } = useLocalStorage('TODOS_V2', []);
 
   const [searchValue, setSearchValue] = React.useState('');
-  const [openModal, setOpenModal] = React.useState(false);
-
   const completedTodos = todos.filter(todo => !!todo.completed).length;
   const totalTodos = todos.length;
+
+  // const [openModal, setOpenModal] = React.useState(false);
 
   let searchedTodos = [];
 
@@ -26,10 +27,30 @@ function useTodos() {
       const searchText = searchValue.toLowerCase();
       return todoText.includes(searchText);
     });
+  };
+
+  const addTodo = (text) => {
+    if (!text.trim()) {
+      alert("The field doesn't accept a text empty, please writing your todo!");
+      return;
+    }
+    const newTodos = [...todos];
+    const id = uuid();
+    newTodos.push({
+      text,
+      completed: false,
+      id,
+    });
+    saveTodos(newTodos);
+  };
+
+  const getTodo = (id) => {
+    const todoIndex = todos.findIndex(todo => todo.id === id);
+    return todos[todoIndex];
   }
 
-  const completeTodo = (text) => {
-    const todoIndex = todos.findIndex(todo => todo.text === text);
+  const completeTodo = (id) => {
+    const todoIndex = todos.findIndex(todo => todo.id === id);
     const newTodos = [...todos];
     newTodos[todoIndex].completed = true;
     // newTodos[todoIndex] = {
@@ -39,21 +60,15 @@ function useTodos() {
     saveTodos(newTodos);
   }
 
-  const addTodo = (text) => {
-    if (!text.trim()) {
-      alert("The field doesn't accept a text empty, please writing your todo!");
-      return;
-    }
+  const editTodo = (id, newText) => {
+    const todoIndex = todos.findIndex(todo => todo.id === id);
     const newTodos = [...todos];
-    newTodos.push({
-      text,
-      completed: false
-    });
+    newTodos[todoIndex].text = newText;
     saveTodos(newTodos);
   }
 
-  const deleteTodo = (text) => {
-    const todoIndex = todos.findIndex(todo => todo.text === text);
+  const deleteTodo = (id) => {
+    const todoIndex = todos.findIndex(todo => todo.id === id);
     const newTodos = [...todos];
     newTodos.splice(todoIndex, 1);
     saveTodos(newTodos);
@@ -67,7 +82,8 @@ function useTodos() {
     completedTodos,
     searchValue,
     searchedTodos,
-    openModal,
+    getTodo,
+    // openModal,
   };
 
   const stateUpdaters = {
@@ -75,15 +91,16 @@ function useTodos() {
     addTodo,
     completeTodo,
     deleteTodo,
-    setOpenModal,
+    editTodo,
     sincronizeTodos,
+    // setOpenModal,
   }
 
   return {
     state,
     stateUpdaters
   };
-}
+};
 
 export { useTodos };
 

@@ -1,20 +1,22 @@
 import React from 'react';
-import { useTodos } from './useTodos';
-import { TodoHeader } from './../../TodoHeader/components/TodoHeader';
-import { TodoCounter } from './../../todocounter/components/TodoCounter';
-import { TodoSearch } from "../../todosearch/components/TodoSearch";
-import { TodoList } from '../../todolist/components/TodoList';
-import { TodoItem } from '../../todoitem/components/TodoItem';
-import { CreateTodoButton } from '../../createtodobutton/components/CreateTodoButton';
-import { Modal } from '../../Modal/components/Modal';
-import { TodoForm } from "../../TodoForm/components/TodoForm";
-import { TodosError } from "../../TodosError/components/TodoError";
-import { LoaderSkeleton } from '../../Loader/components/LoaderSkeleton';
-import { EmptyTodos } from '../../EmptyTodos/components/EmptyTodos';
-import { ChangeAlert } from '../../ChangeAlert/components/ChangeAlert';
-import { EmptySearchResult } from '../../EmptySearchResult/components/EmptySearchResult';
+import { useNavigate } from 'react-router-dom';
+import { useTodos } from '../../hooks/useTodos';
+import { TodoHeader } from '../../components/TodoHeader/TodoHeader';
+import { TodoCounter } from '../../components/TodoCounter/TodoCounter';
+import { TodoSearch } from "../../components/TodoSearch/TodoSearch";
+import { TodoList } from '../../components/TodoList/TodoList';
+import { TodoItem } from '../../components/TodoItem/TodoItem';
+import { CreateTodoButton } from '../../components/CreateTodoButton/CreateTodoButton';
+import { TodosError } from "../../components/TodoError/TodoError";
+import { LoaderSkeleton } from '../../components/Loader/LoaderSkeleton';
+import { EmptyTodos } from '../../components/EmptyTodos/EmptyTodos';
+import { ChangeAlert } from '../../components/ChangeAlert/ChangeAlert';
+import { EmptySearchResult } from '../../components/EmptySearchResult/EmptySearchResult';
+// import { Modal } from '../../components/Modal/Modal';
+// import { TodoForm } from "../../components/TodoForm/TodoForm";
 
-function App() {
+const HomePage = () => {
+  const navigate = useNavigate();
   const { state, stateUpdaters } = useTodos();
 
   const {
@@ -24,16 +26,16 @@ function App() {
     completedTodos,
     searchValue,
     searchedTodos,
-    openModal,
+    // openModal,
   } = state;
 
   const {
     setSearchValue,
-    addTodo,
     completeTodo,
     deleteTodo,
-    setOpenModal,
     sincronizeTodos,
+    // addTodo,
+    // setOpenModal,
   } = stateUpdaters;
 
   return (
@@ -75,26 +77,30 @@ function App() {
         {/* Render Function */}
         {todo => (
           <TodoItem
-            key={todo.text}
+            key={todo.id}
             text={todo.text}
             completed={todo.completed}
-            onComplete={() => completeTodo(todo.text)}
-            onDelete={() => deleteTodo(todo.text)}
+            onComplete={() => completeTodo(todo.id)}
+            onEdit={() => navigate('/edit/' + todo.id, {
+              state: { todo }
+            })}
+            onDelete={() => deleteTodo(todo.id)}
           />
         )}
       </TodoList>
 
-      {!!openModal && (
+      {/* {!!openModal && (
         <Modal>
           <TodoForm
             addTodo={addTodo}
             setOpenModal={setOpenModal}
           />
         </Modal>
-      )}
+      )} */}
 
       <CreateTodoButton
-        setOpenModal={setOpenModal}
+        onClick={() => navigate('/new')}
+      // setOpenModal={setOpenModal}
       />
       <ChangeAlert
         sincronize={sincronizeTodos}
@@ -103,15 +109,4 @@ function App() {
   );
 }
 
-export default App;
-
-/*
-  *Con props = mandamos todo lo que sería información.
-  *Con children = mandarle elementos HTML.
-  *con <></> podemos definir el fragment en react.
-  *const completedTodos = todos.filter(todo => todo.completed == true) forma tradicional de validar
-  *const todoIndex = todos.findIndex(todo => todo.text === text); busca todo x todo.
-  *setTodos(newTodos); //enviarle nueva línea de todo.
-  *A React no se le puede modificar la propiedad directamente.
-  *Si tenemos más de dos propiedades es necesario pasar un objeto.
-*/
+export { HomePage };

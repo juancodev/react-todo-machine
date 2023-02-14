@@ -39,6 +39,12 @@
   color: #4caf50;
 }
 
+.Icon-edit {
+  position: absolute;
+  top: -24px;
+  right: 48px;
+}
+
 .Icon-delete {
   position: absolute;
   top: -24px;
