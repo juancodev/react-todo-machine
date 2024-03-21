@@ -43,5 +43,5 @@
     "react-content-loader": "^6.2.0",
     "react-loading-skeleton": "^3.1.0"
   },
-  "homepage": "https://juancodev.github.io/react-todo-machine"
+  "homepage": "."
 }
